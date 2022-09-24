@@ -18,7 +18,6 @@ namespace WebApiBackend.Models
         public Centre()
         {
             this.Bookings = new HashSet<Booking>();
-            this.Bookings1 = new HashSet<Booking>();
         }
     
         public int Id { get; set; }
@@ -26,7 +25,5 @@ namespace WebApiBackend.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Booking> Bookings1 { get; set; }
     }
 }

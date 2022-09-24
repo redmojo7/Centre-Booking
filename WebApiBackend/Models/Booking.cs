@@ -21,6 +21,5 @@ namespace WebApiBackend.Models
         public Nullable<System.DateTime> EndDate { get; set; }
     
         public virtual Centre Centre { get; set; }
-        public virtual Centre Centre1 { get; set; }
     }
 }
