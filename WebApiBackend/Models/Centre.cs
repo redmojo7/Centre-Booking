@@ -11,7 +11,9 @@ namespace WebApiBackend.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class Centre
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +21,12 @@ namespace WebApiBackend.Models
         {
             this.Bookings = new HashSet<Booking>();
         }
-    
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string Name { get; set; }
-    
+
+        //virtual关键字修饰，用于延迟加载 提高性能 只有显式调用时 才会加载 并可以代表一个Student对象 也就是 属性==对象
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
     }

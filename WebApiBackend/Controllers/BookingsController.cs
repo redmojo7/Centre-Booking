@@ -19,25 +19,34 @@ namespace WebApiBackend.Controllers
         public BookingsController()
         {
             db = new bookingdbEntities();
-            //db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
         }
 
         // GET: api/Bookings
-        public IQueryable<Booking> GetBookings()
+        public IHttpActionResult GetBookings()
         {
-            return db.Bookings;
+           // var a =  db.Bookings.Include(e => e.Centre).ToList();
+            List<Booking> bookings = db.Bookings.Include(e => e.Centre).ToList();
+            /*
+            foreach (var b in bookings)
+            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(results);
+            {
+                Centre centre = centres.FirstOrDefault(c => c.Id == b.CentreId);
+                centre.Bookings = null;
+                b.Centre = centre;
+            }*/
+            return Ok(bookings);
         }
 
         // GET: api/Bookings/5
         [ResponseType(typeof(Booking))]
         public IHttpActionResult GetBooking(int id)
         {
-            Booking booking = db.Bookings.Find(id);
+            Booking booking = db.Bookings.Include(e => e.Centre).FirstOrDefault(b => b.Id == id);
             if (booking == null)
             {
                 return NotFound();
             }
-
             return Ok(booking);
         }
 
