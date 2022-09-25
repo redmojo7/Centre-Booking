@@ -17,8 +17,8 @@ namespace WebApiBackend.Models
         public int Id { get; set; }
         public string UserName { get; set; }
         public int CentreId { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
     
         public virtual Centre Centre { get; set; }
     }

@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FA1F8864-263A-4932-B098-C190089EE359}</ProjectGuid>
+    <ProjectGuid>{E9C9A34F-1F05-48DB-AE13-944A71C3807E}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -171,25 +171,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Booking.cs">
-      <DependentUpon>Centres.tt</DependentUpon>
+      <DependentUpon>BookingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookingModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookingModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookingModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookingModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Centre.cs">
-      <DependentUpon>Centres.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Centres.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Centres.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Centres.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Centres.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Centres.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Centres.edmx</DependentUpon>
+      <DependentUpon>BookingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -206,15 +206,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Centres.Context.tt">
+    <Content Include="Models\BookingModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Centres.Context.cs</LastGenOutput>
-      <DependentUpon>Centres.edmx</DependentUpon>
+      <LastGenOutput>BookingModel.Context.cs</LastGenOutput>
+      <DependentUpon>BookingModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Centres.tt">
+    <Content Include="Models\BookingModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Centres.edmx</DependentUpon>
-      <LastGenOutput>Centres.cs</LastGenOutput>
+      <DependentUpon>BookingModel.edmx</DependentUpon>
+      <LastGenOutput>BookingModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -237,12 +237,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\Centres.edmx">
+    <EntityDeploy Include="Models\BookingModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Centres.Designer.cs</LastGenOutput>
+      <LastGenOutput>BookingModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Centres.edmx.diagram">
-      <DependentUpon>Centres.edmx</DependentUpon>
+    <Content Include="Models\BookingModel.edmx.diagram">
+      <DependentUpon>BookingModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -314,7 +314,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>64519</DevelopmentServerPort>
+          <DevelopmentServerPort>65378</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:64519/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

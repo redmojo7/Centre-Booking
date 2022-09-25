@@ -80,22 +80,7 @@ namespace WebApiBackend.Controllers
             }
 
             db.Centres.Add(centre);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (CentreExists(centre.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = centre.Id }, centre);
         }
