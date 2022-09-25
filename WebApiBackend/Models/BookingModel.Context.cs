@@ -18,6 +18,7 @@ namespace WebApiBackend.Models
         public bookingdbEntities()
             : base("name=bookingdbEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

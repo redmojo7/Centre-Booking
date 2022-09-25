@@ -14,7 +14,13 @@ namespace WebApiBackend.Controllers
 {
     public class BookingsController : ApiController
     {
-        private bookingdbEntities db = new bookingdbEntities();
+        private bookingdbEntities db;
+
+        public BookingsController()
+        {
+            db = new bookingdbEntities();
+            //db.Configuration.ProxyCreationEnabled = false;
+        }
 
         // GET: api/Bookings
         public IQueryable<Booking> GetBookings()

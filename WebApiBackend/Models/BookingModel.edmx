@@ -78,7 +78,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bookingdbEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bookingdbEntities" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="Bookings" EntityType="Self.Booking" />
           <EntitySet Name="Centres" EntityType="Self.Centre" />
           <AssociationSet Name="fk_centre" Association="Self.fk_centre">

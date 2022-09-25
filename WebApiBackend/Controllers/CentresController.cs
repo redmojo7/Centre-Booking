@@ -14,11 +14,19 @@ namespace WebApiBackend.Controllers
 {
     public class CentresController : ApiController
     {
-        private bookingdbEntities db = new bookingdbEntities();
+        private bookingdbEntities db;
+
+        public CentresController()
+        {
+            db = new bookingdbEntities();
+            db.Configuration.ProxyCreationEnabled = false;
+        }
 
         // GET: api/Centres
         public IQueryable<Centre> GetCentres()
         {
+            //db.Database.SqlQuery
+           
             return db.Centres;
         }
 
