@@ -116,6 +116,51 @@ namespace WebApiBackend.Controllers
             return Ok(booking);
         }
 
+        // GET: api/AvaliableDate/1
+        [ResponseType(typeof(DateTime))]
+        [HttpGet]
+        [Route("api/AvaliableDate")]
+        public IHttpActionResult AvaliableDate(int centreId)
+        {
+            if (centreId == 0) 
+            {
+                return BadRequest("centreId cannot be empty.");
+            }
+            List<Booking> bookings = db.Bookings.Where(b => b.CentreId == centreId).ToList();
+            DateTime avaliable = DateTime.Today.AddDays(1);
+
+            if (bookings == null)
+            {
+                return Ok(avaliable);
+            }
+
+            DateTime tody = DateTime.Today;
+            // firstly searching
+            foreach (var b in bookings) 
+            {
+                DateTime start = b.StartDate;
+                DateTime end = b.EndDate;
+                if (tody.Subtract(start).TotalDays >= 0 && tody.Subtract(end).TotalDays <= 0)  // Between
+                {
+                    avaliable = new[] { end.AddDays(1), avaliable }.Max();
+                }
+            }
+            // second seaching
+            foreach (var b in bookings) 
+            {
+                DateTime start = b.StartDate;
+                DateTime end = b.EndDate;
+                if (tody.Subtract(start).TotalDays <= 0 && tody.Subtract(end).TotalDays <= 0)
+                {
+                    if (avaliable.Subtract(start).TotalDays >= 0 && avaliable.Subtract(end).TotalDays <= 0) // Between
+                    {
+                        avaliable = end.AddDays(1);
+                    }
+                }
+            }
+            return Ok(avaliable);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
