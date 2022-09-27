@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -85,6 +86,12 @@ namespace WebApiBackend.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            List<Centre> centres = db.Centres.Where(c => c.Name == centre.Name).ToList();
+            if ((centres != null) && (centres.Any()))
+            {
+                return Conflict();
             }
 
             db.Centres.Add(centre);
