@@ -1,0 +1,67 @@
+﻿@{
+    @using WebCoreFrontend.Models;
+    @model IEnumerable<Centre>;
+
+}
+<h1>Centres</h1>
+<div id="Centreview">
+    <table>
+        <caption>Centre List</caption>
+        <tr>
+            <th>Id</th>
+            <th>Centre Name</th>
+            <th></th>
+        </tr>
+        @foreach (var centre in Model)
+        {
+            <tr>
+                <td>@centre.Id</td>
+                <td>@centre.Name</td>
+                <td><button id="deleteStu" onclick="deleteStu()">Delete</button></td>
+                <td><button id="create" onclick="create()">Create</button></td>
+            </tr>
+        }
+    </table>
+</div>
+<script>
+    function deleteStu() {
+        $.ajax({
+            url: '/centres/deletecentre/' + 1,
+            type: 'delete',
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                alert("Data Dleted");
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
+
+    function create() {
+        $.ajax({
+            type: 'POST',
+            url: '/centres/createcentre/',
+            contentType: 'application/json',
+            data: JSON.stringify(
+                {
+                    "Name": 'sydney',
+                    "Id":   null
+                }),
+            success: function (data, textStatus, jQxhr) {
+                alert("Data created");
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
+
+</script>

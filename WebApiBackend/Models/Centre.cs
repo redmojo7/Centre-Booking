@@ -22,7 +22,7 @@ namespace WebApiBackend.Models
             this.Bookings = new HashSet<Booking>();
         }
         [DataMember]
-        public int Id { get; set; }
+        public Nullable<int> Id { get; set; }
         [DataMember]
         public string Name { get; set; }
 

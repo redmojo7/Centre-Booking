@@ -1,0 +1,28 @@
+﻿@{
+    @using WebCoreFrontend.Models;
+    @model IEnumerable<Booking>;
+
+}
+<h1>Bookings</h1>
+<div id="bookingview" style="width:1025px; height:300px;">
+    <table black" cellspacing="0" width="900px" id="dataTableDetail" align="center">
+        <caption>Booking List</caption>
+          <tr>
+            <th>Id</th>
+            <th>UserName</th>
+            <th>StartDate</th>
+            <th>EndDate</th>
+            <th>Centre Name</th>
+          </tr>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.Id</td>
+                <td>@booking.UserName</td>
+                <td>@booking.StartDate</td>
+                <td>@booking.EndDate</td>
+                <td>@booking.Centre.Name</td>
+            </tr>
+        }
+    </table>
+</div>
