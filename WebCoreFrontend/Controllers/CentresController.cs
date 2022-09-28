@@ -97,5 +97,24 @@ namespace WebCoreFrontend.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Search(string name)
+        {
+            if (name == null || name =="")
+            {
+                return BadRequest("name cannot be null");
+            }
+            RestClient restClient = new RestClient(URL);
+            RestRequest restRequest = new RestRequest("api/centres/search", Method.Get);
+            restRequest.AddParameter("name", name);
+            RestResponse restResponse = restClient.Execute(restRequest);
+            if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return NotFound(string.Format("Centre with name = {0} was not found", name));
+            }
+            return Ok(restResponse.Content);
+        }
+
+
     }
 }

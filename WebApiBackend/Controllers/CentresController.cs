@@ -116,6 +116,14 @@ namespace WebApiBackend.Controllers
             return Ok(centre);
         }
 
+        [Route("api/centres/search")]
+        [HttpGet]
+        public IHttpActionResult Search(string name)
+        {
+            List<Centre> centres = db.Centres.Where(c => c.Name.ToLower().Contains(name.ToLower())).ToList();
+            return Ok(centres);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
