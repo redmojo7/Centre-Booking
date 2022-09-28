@@ -5,7 +5,7 @@
 }
 <h1>Centres</h1>
 <div id="Centreview">
-    <table>
+    <table id="centreTable">
         <caption>Centre List</caption>
         <tr>
             <th>Id</th>
@@ -17,17 +17,26 @@
             <tr>
                 <td>@centre.Id</td>
                 <td>@centre.Name</td>
-                <td><button id="deleteStu" onclick="deleteStu()">Delete</button></td>
+                <td><button id="deleteStu">Delete</button></td>
                 <td><button id="create" onclick="create()">Create</button></td>
             </tr>
         }
     </table>
 </div>
 <script>
+    var tab = document.getElementById("centreTable");
+    var tr = tab.getElementsByTagName("tr");
 
-    function deleteStu() {
+    for (var i = 0; i < tr.length; i++)tr[i].onclick = function () {
+        var thisTR = this.innerHTML;//content
+        var id = $(this).children().eq(0).text();//first td
+        deleteStu(id)
+    }
+
+    function deleteStu(id) {
+
         $.ajax({
-            url: '/centres/deletecentre/' + 1,
+            url: '/centres/deletecentre/?id='+id,
             type: 'delete',
             contentType: 'application/json',
             processData: false,
@@ -51,7 +60,7 @@
             data: JSON.stringify(
                 {
                     "Name": 'sydney',
-                    "Id":   null
+                    "Id": null
                 }),
             success: function (data, textStatus, jQxhr) {
                 alert("Data created");
