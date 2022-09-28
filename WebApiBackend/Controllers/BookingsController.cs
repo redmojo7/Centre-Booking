@@ -93,7 +93,15 @@ namespace WebApiBackend.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            List<Booking> bookings = db.Bookings.ToList();
+            foreach (var b in bookings)
+            {
+                bool overlap = booking.StartDate < b.EndDate && b.StartDate < booking.EndDate;
+                if (overlap)
+                {
+                    return Conflict();
+                }
+            }
             db.Bookings.Add(booking);
             db.SaveChanges();
 

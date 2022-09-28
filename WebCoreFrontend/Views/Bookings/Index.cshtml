@@ -28,9 +28,7 @@
         </div>
         <div style="width: 25%;float:left;">
             <label for="start">End Date:</label>
-            <input type="date" id="end" name="trip-start"
-                   value="2018-07-22"
-                   min="2018-01-01" max="2018-12-31">
+            <input type="date" id="end" name="trip-start">
         </div>
         <div style="width: 25%;float:left;">
             <label for="UserName">User Name:</label>
@@ -154,8 +152,8 @@ document.getElementById("end").value = today_str;
             var centre = row.insertCell(4);
             id.innerHTML=list[i].id;
             name.innerHTML=list[i].userName;
-            start.innerHTML=list[i].startDate;
-            end.innerHTML=list[i].endDate;
+            start.innerHTML=format_date(new Date(list[i].startDate));
+            end.innerHTML=format_date(new Date(list[i].endDate));
             centre.innerHTML=list[i].centre.name;
         }
     }
