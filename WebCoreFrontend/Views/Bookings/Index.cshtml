@@ -154,8 +154,8 @@ document.getElementById("end").value = today_str;
             var centre = row.insertCell(4);
             id.innerHTML=list[i].id;
             name.innerHTML=list[i].userName;
-            start.innerHTML=list[i].startDate;
-            end.innerHTML=list[i].endDate;
+            start.innerHTML=format_date(new Date(list[i].startDate));
+            end.innerHTML=format_date(new Date(list[i].endDate));
             centre.innerHTML=list[i].centre.name;
         }
     }
