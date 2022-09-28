@@ -82,6 +82,7 @@ document.getElementById("end").value = today_str;
                     "CentreId": $('#centreSelect').find(":selected").val()
                 }),
             success: function (data, textStatus, jQxhr) {
+                centreChanged();
                 alert("Booking Successfully");
             },
             error: function (xhr, textStatus, error) {
@@ -99,7 +100,7 @@ document.getElementById("end").value = today_str;
         // get booking by centre id
         if (centreId) {
             $.ajax({
-                url: '/bookings/inCentre/?centreId=' + 1,
+                url: '/bookings/inCentre/?centreId=' + centreId,
                 type: 'get',
                 contentType: 'application/json',
                 processData: false,
@@ -116,7 +117,7 @@ document.getElementById("end").value = today_str;
             });
             
             $.ajax({
-                url: '/bookings/nextAvaliableDate/?centreId=' + 1,
+                url: '/bookings/nextAvaliableDate/?centreId=' + centreId,
                 type: 'get',
                 contentType: 'application/json',
                 processData: false,
@@ -141,7 +142,7 @@ document.getElementById("end").value = today_str;
         console.log(list);
         var table = document.getElementById('dataTableDetail')
         var rowCount = table.rows.length;
-        for (var x=rowCount-1; x>1; x--) {
+        for (var x=rowCount-1; x>0; x--) {
            table.deleteRow(x);
         }
         for (i =0; i < list.length; i++) {
