@@ -24,6 +24,13 @@ namespace WebCoreFrontend.Controllers
             c2.Name = "sydney";
             centres.Add(c1);
             centres.Add(c2);
+            
+            /*
+            RestClient restClient = new RestClient(URL);
+            RestRequest restRequest = new RestRequest("api/centres", Method.Get);
+            RestResponse restResponse = restClient.Execute(restRequest);
+            //List<Centre> centres = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
+            */
             return View(centres);
         }
 

@@ -48,13 +48,21 @@
         background-color: lightblue;
     }
 </style>
-<center> <h1> Student Login Form </h1> </center>
+<center> <h1> Admin Login </h1> </center>
 <form>
     <div class="container">
         <label>Username : </label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <input id="username" type="text" placeholder="Enter Username" name="username" required>
         <label>Password : </label>
-        <input type="password" placeholder="Enter Password" name="password" required>
-        <button type="submit">Login</button>
+        <input id ="password" type="password" placeholder="Enter Password" name="password" required>
+        <button onclick="login()">Login</button>
     </div>
 </form> 
+<script>
+    function login() {
+        if($("#username").val()=="admin" && $("#password").val()=="adminpass"){
+            console.log("login successfully");
+            window.location= "/Centres" 
+        }
+    }
+</script>

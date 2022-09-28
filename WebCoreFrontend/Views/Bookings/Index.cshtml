@@ -1,11 +1,48 @@
 ﻿@{
     @using WebCoreFrontend.Models;
-    @model IEnumerable<Booking>;
+    @model IEnumerable<Centre>;
 
 }
-<h1>Bookings</h1>
+<h3>Bookings</h3>
+<div class="width: 100%;">
+        <div style="width: 25%;float:left;">
+            <label for="centreSelect">Select a Centre Name</label>
+            <select id="centreSelect" onchange="centreChanged()">
+                <option value="" id="cenre_default" selected="selected" ></option>
+                @foreach (var centre in Model)
+                {
+                    <option value="@centre.Id" id="centre_@centre.Id">@centre.Name</option>
+                }
+            </select>
+        </div>
+        <div style="width: 25%;float:left;">
+            <label for="nextAvaiDate">Next Avaliable Date:</label>
+            <p id="nextAvaiDate" ></p>
+        </div>
+</div>
+<div class="width: 100%;">
+        <div style="width: 25%;float:left;">
+            <label for="start">Start Date:</label>
+            <input type="date" id="start" name="trip-start"
+                   onload="getDate()">
+        </div>
+        <div style="width: 25%;float:left;">
+            <label for="start">End Date:</label>
+            <input type="date" id="end" name="trip-start"
+                   value="2018-07-22"
+                   min="2018-01-01" max="2018-12-31">
+        </div>
+        <div style="width: 25%;float:left;">
+            <label for="UserName">User Name:</label>
+            <input type="text" id="UserName" name="trip-start"/>
+        </div>
+        <div>
+            <button style="margin: 35px 20px 20px 0px;" onclick="booking()">Booking</button>
+        </div>
+</div>
+
 <div id="bookingview" style="width:1025px; height:300px;">
-    <table black" cellspacing="0" width="900px" id="dataTableDetail" align="center">
+    <table style="black" cellspacing="0" width="900px" id="dataTableDetail" align="center">
         <caption>Booking List</caption>
           <tr>
             <th>Id</th>
@@ -14,15 +51,112 @@
             <th>EndDate</th>
             <th>Centre Name</th>
           </tr>
-        @foreach (var booking in Model)
-        {
-            <tr>
-                <td>@booking.Id</td>
-                <td>@booking.UserName</td>
-                <td>@booking.StartDate</td>
-                <td>@booking.EndDate</td>
-                <td>@booking.Centre.Name</td>
-            </tr>
-        }
+           
     </table>
 </div>
+
+
+<script>
+
+var today_str = format_date(new Date());
+document.getElementById("start").value = today_str;
+document.getElementById("end").value = today_str;
+
+
+    function format_date(date){
+        return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+    }
+
+
+    function booking(){
+        console.log("booking from "+ $('#start').val() + " to " + $('#end').val() + " with centre " +$('#centreSelect').find(":selected").text());
+        $.ajax({
+            type: 'POST',
+            url: '/bookings/insert/',
+            contentType: 'application/json',
+            data: JSON.stringify(
+                {
+                    "UserName": $("#UserName").val(),
+                    "StartDate": $("#start").val(),
+                    "EndDate": $("#end").val(),
+                    "CentreId": $('#centreSelect').find(":selected").val()
+                }),
+            success: function (data, textStatus, jQxhr) {
+                alert("Booking Successfully");
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
+
+    function centreChanged() {
+        centreId = $('#centreSelect').find(":selected").val();
+        console.log(centreId);
+        // get booking by centre id
+        if (centreId) {
+            $.ajax({
+                url: '/bookings/inCentre/?centreId=' + 1,
+                type: 'get',
+                contentType: 'application/json',
+                processData: false,
+                success: function (data, textStatus, jQxhr) {
+                    loadData(data)
+                    //alert("Booking searched by " + centreId);
+                },
+                error: function (xhr, textStatus, error) {
+                    alert("Error: " + xhr.responseText);
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
+            
+            $.ajax({
+                url: '/bookings/nextAvaliableDate/?centreId=' + 1,
+                type: 'get',
+                contentType: 'application/json',
+                processData: false,
+                success: function (data, textStatus, jQxhr) {
+                    var nextAvaiDate = format_date(new Date(data))
+                    document.getElementById('nextAvaiDate').innerHTML=nextAvaiDate;
+                    document.getElementById("start").value=nextAvaiDate;
+                    document.getElementById("end").value=nextAvaiDate;
+                    //alert("Booking searched by " + centreId);
+                },
+                error: function (xhr, textStatus, error) {
+                    alert("Error: " + xhr.responseText);
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
+        }
+    }
+
+    function loadData(list){
+        console.log(list);
+        var table = document.getElementById('dataTableDetail')
+        var rowCount = table.rows.length;
+        for (var x=rowCount-1; x>1; x--) {
+           table.deleteRow(x);
+        }
+        for (i =0; i < list.length; i++) {
+            var row=table.insertRow(-1);
+            var id = row.insertCell(0)
+            var name = row.insertCell(1);
+            var start = row.insertCell(2);
+            var end = row.insertCell(3);
+            var centre = row.insertCell(4);
+            id.innerHTML=list[i].id;
+            name.innerHTML=list[i].userName;
+            start.innerHTML=list[i].startDate;
+            end.innerHTML=list[i].endDate;
+            centre.innerHTML=list[i].centre.name;
+        }
+    }
+
+</script>

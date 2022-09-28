@@ -119,8 +119,8 @@ namespace WebApiBackend.Controllers
         // GET: api/AvaliableDate/1
         [ResponseType(typeof(DateTime))]
         [HttpGet]
-        [Route("api/AvaliableDate")]
-        public IHttpActionResult AvaliableDate(int centreId)
+        [Route("api/Bookings/nextAvaliableDate/{centreId}")]
+        public IHttpActionResult NextAvaliableDate(int centreId)
         {
             if (centreId == 0) 
             {
@@ -161,7 +161,18 @@ namespace WebApiBackend.Controllers
             return Ok(avaliable);
         }
 
-        protected override void Dispose(bool disposing)
+        
+        [HttpGet]
+        [Route("api/bookings/incentre/{centreId}")]
+        // GET: api/Bookings
+        public IHttpActionResult inCentre(int centreId)
+        {
+            List<Booking> bookings = db.Bookings.Include(e => e.Centre).Where(a => a.CentreId==centreId).ToList();
+            return Ok(bookings);
+        }
+
+
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
