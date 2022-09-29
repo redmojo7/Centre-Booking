@@ -3,9 +3,15 @@
     @model IEnumerable<Centre>;
 
 }
-<h1>Centres</h1>
-<div id="Centreview">
-    <table id="centreTable">
+<div id="navigation">
+    <ul>
+        <li> <a href="/Bookings">Bookings</a></></li>
+        <li> <a href="/Centres">Centres</a></></li>
+    </ul>
+</div>
+<h3>Centres</h3>
+<div id="Centreview" style="width: 100%">
+    <table id="centreTable" style="width: 33%;float:left;">
         <caption>Centre List</caption>
         <tr>
             <th>Id</th>
@@ -18,10 +24,14 @@
                 <td>@centre.Id</td>
                 <td>@centre.Name</td>
                 <td><button id="deleteStu">Delete</button></td>
-                <td><button id="create" onclick="create()">Create</button></td>
             </tr>
         }
     </table>
+    <div style="width: 33%;float:right;">
+        <label for="centreName">Centre Name</label>
+        <input type="text" id="centreName" name="centreName" placeholder="Centre Name"/>
+        <button id="create" onclick="create()">Create</button>
+    </div>
 </div>
 <script>
     var tab = document.getElementById("centreTable");
@@ -59,7 +69,7 @@
             contentType: 'application/json',
             data: JSON.stringify(
                 {
-                    "Name": 'sydney',
+                    "Name": $('#centreName').val(),
                     "Id": null
                 }),
             success: function (data, textStatus, jQxhr) {

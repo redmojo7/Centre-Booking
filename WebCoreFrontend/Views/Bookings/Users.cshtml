@@ -3,50 +3,71 @@
     @model IEnumerable<Centre>;
 
 }
-<div id="navigation">
-    <ul>
-        <li> <a href="/Bookings">Bookings</a></></li>
-        <li> <a href="/Centres">Centres</a></></li>
-    </ul>
-</div>
 <h3>Bookings</h3>
-<div class="width: 100%;">
-        <div style="width: 25%;float:left;">
-            <label for="centreSelect">Select a Centre Name</label>
-            <select id="centreSelect" onchange="centreChanged()">
-                <option value="" id="cenre_default" selected="selected" ></option>
-                @foreach (var centre in Model)
-                {
-                    <option value="@centre.Id" id="centre_@centre.Id">@centre.Name</option>
-                }
-            </select>
+<div style="width: 100%;">
+        <div style="width: 33%;float:left;">
+            <label for="centreName">Search a Centre</label>
+            <input type="text" id="centreName" name="Id" placeholder="Centre Name" />
+            <button id="search" onclick="search()">Search</button>
         </div>
-        <div style="width: 25%;float:left;">
+        <div style="width: 33%;float:left;" id="centresResult">
+        </div>
+        <div style="width: 33%;float:left;">
             <label for="nextAvaiDate">Next Avaliable Date:</label>
             <p id="nextAvaiDate" ></p>
         </div>
 </div>
-
-<div id="bookingview" style="width:1025px; height:300px;">
-    <table style="black" cellspacing="0" width="900px" id="dataTableDetail" align="center">
-        <caption>Booking List</caption>
-          <tr>
-            <th>Id</th>
-            <th>UserName</th>
-            <th>StartDate</th>
-            <th>EndDate</th>
-            <th>Centre Name</th>
-          </tr>
-           
-    </table>
+<div style="width: 100%;">
+    <p>
+        <div style="width: 25%;">
+            <label for="start">Start Date:</label>
+            <input type="date" id="start" name="trip-start"
+                   onload="getDate()">
+        </div>
+        <div style="width: 25%;float:left;">
+            <label for="start">End Date:</label>
+            <input type="date" id="end" name="trip-start">
+        </div>
+    </p>
+    <div style="width: 25%;float:left;">
+        <label for="UserName">User Name:</label>
+        <input type="text" id="UserName" name="trip-start"/>
+    </div>
+    <div style="width: 25%;float:left;">
+        <button style="margin: 35px 20px 20px 0px;" onclick="booking()">Booking</button>
+    </div>
 </div>
-
 
 <script>
 
 var today_str = format_date(new Date());
 document.getElementById("start").value = today_str;
 document.getElementById("end").value = today_str;
+
+    function search() {
+        $.ajax({
+            url: '/centres/search/?name=' + $('#centreName').val(),
+            type: 'get',
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                console.log(data);
+                $( "#centresResult" ).empty();
+                var $label = $("<label>").text('Centres:');
+                $('#centresResult').append($label);
+                for (i =0; i < data.length; i++) {
+                    var radioBtn = $("<label><input type='radio' name='centreName' onclick='centreChanged()' value='"+data[i].id+"' id='myCentre"+i+"'>"+data[i].name+"</label>");
+                    $('#centresResult').append(radioBtn);
+                }
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
 
 
     function format_date(date){
@@ -65,7 +86,7 @@ document.getElementById("end").value = today_str;
                     "UserName": $("#UserName").val(),
                     "StartDate": $("#start").val(),
                     "EndDate": $("#end").val(),
-                    "CentreId": $('#centreSelect').find(":selected").val()
+                    "CentreId": $('#centresResult').find(":checked").val()
                 }),
             success: function (data, textStatus, jQxhr) {
                 centreChanged();
@@ -81,27 +102,10 @@ document.getElementById("end").value = today_str;
     }
 
     function centreChanged() {
-        centreId = $('#centreSelect').find(":selected").val();
+        centreId = $('#centresResult').find(":checked").val();
         console.log(centreId);
-        // get booking by centre id
+        // get nextAvaliableDate by centre id
         if (centreId) {
-            $.ajax({
-                url: '/bookings/inCentre/?centreId=' + centreId,
-                type: 'get',
-                contentType: 'application/json',
-                processData: false,
-                success: function (data, textStatus, jQxhr) {
-                    loadData(data)
-                    //alert("Booking searched by " + centreId);
-                },
-                error: function (xhr, textStatus, error) {
-                    alert("Error: " + xhr.responseText);
-                    console.log(xhr.statusText);
-                    console.log(textStatus);
-                    console.log(error);
-                }
-            });
-            
             $.ajax({
                 url: '/bookings/nextAvaliableDate/?centreId=' + centreId,
                 type: 'get',

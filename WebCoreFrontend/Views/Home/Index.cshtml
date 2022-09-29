@@ -48,21 +48,27 @@
         background-color: lightblue;
     }
 </style>
+
 <center> <h1> Admin Login </h1> </center>
-<form>
-    <div class="container">
-        <label>Username : </label>
-        <input id="username" type="text" placeholder="Enter Username" name="username" required>
-        <label>Password : </label>
-        <input id ="password" type="password" placeholder="Enter Password" name="password" required>
-        <button onclick="login()">Login</button>
-    </div>
-</form> 
+
+<div class="container">
+    <label>Username : </label>
+    <input id="username" type="text" placeholder="Enter Username" name="username" required>
+    <label>Password : </label>
+    <input id ="password" type="password" placeholder="Enter Password" name="password" required>
+    <button onclick="login()" style="width: 33%;float:left;">Login</button>
+    <button onclick="normal()" style="width: 33%;float:right;">Normal User</button>
+</div>
 <script>
     function login() {
         if($("#username").val()=="admin" && $("#password").val()=="adminpass"){
             console.log("login successfully");
             window.location= "/Centres" 
+        } else {
+            alert("Error: username/password is wrong!");
         }
+    }
+    function normal() {
+        window.location= "/Bookings/users" 
     }
 </script>

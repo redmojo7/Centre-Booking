@@ -104,6 +104,7 @@ namespace WebCoreFrontend.Controllers
             {
                 return BadRequest("name cannot be null");
             }
+            /*
             RestClient restClient = new RestClient(URL);
             RestRequest restRequest = new RestRequest("api/centres/search", Method.Get);
             restRequest.AddParameter("name", name);
@@ -111,8 +112,18 @@ namespace WebCoreFrontend.Controllers
             if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return NotFound(string.Format("Centre with name = {0} was not found", name));
-            }
-            return Ok(restResponse.Content);
+            }*/
+            ViewBag.Title = "Centre";
+            List<Centre> centres = new List<Centre>();
+            var c1 = new Centre();
+            c1.Id = 1;
+            c1.Name = "perth";
+            var c2 = new Centre();
+            c2.Id = 2;
+            c2.Name = "sydney";
+            centres.Add(c1);
+            centres.Add(c2);
+            return Ok(centres);
         }
 
 

@@ -72,6 +72,20 @@ namespace WebCoreFrontend.Controllers
             return View(centres);
         }
 
+
+        [HttpGet]
+        public IActionResult Users()
+        {
+            ViewBag.Title = "Bookings";
+            /*
+            RestClient restClient = new RestClient(URL);
+            RestRequest restRequest = new RestRequest("api/centres", Method.Get);
+            RestResponse restResponse = restClient.Execute(restRequest);
+            List<Centre> centres = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
+            */
+            return View(centres);
+        }
+
         [HttpGet]
         public IActionResult inCentre(int centreId)
         {
