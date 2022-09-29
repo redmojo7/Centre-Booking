@@ -14,6 +14,7 @@ namespace WebCoreFrontend.Controllers
         // GET: api/Centres
         public IActionResult Index()
         {
+            /*
             ViewBag.Title = "Centre";
             List<Centre> centres = new List<Centre>();
             var c1 = new Centre();
@@ -24,13 +25,13 @@ namespace WebCoreFrontend.Controllers
             c2.Name = "sydney";
             centres.Add(c1);
             centres.Add(c2);
+            */
             
-            /*
             RestClient restClient = new RestClient(URL);
             RestRequest restRequest = new RestRequest("api/centres", Method.Get);
             RestResponse restResponse = restClient.Execute(restRequest);
-            //List<Centre> centres = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
-            */
+            List<Centre> centres = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
+            
             return View(centres);
         }
 
@@ -90,6 +91,10 @@ namespace WebCoreFrontend.Controllers
             {
                 return NotFound(string.Format("Centre with id = {0} was not found", id));
             }
+            else if (restResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+            {
+                return NotFound(string.Format("Centre with id = {0} canot be deleted", id));
+            }
             else
             {
                 Console.WriteLine(restResponse.Content);
@@ -104,7 +109,7 @@ namespace WebCoreFrontend.Controllers
             {
                 return BadRequest("name cannot be null");
             }
-            /*
+            
             RestClient restClient = new RestClient(URL);
             RestRequest restRequest = new RestRequest("api/centres/search", Method.Get);
             restRequest.AddParameter("name", name);
@@ -112,7 +117,10 @@ namespace WebCoreFrontend.Controllers
             if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return NotFound(string.Format("Centre with name = {0} was not found", name));
-            }*/
+            }
+            List<Centre> centres = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
+        
+            /*
             ViewBag.Title = "Centre";
             List<Centre> centres = new List<Centre>();
             var c1 = new Centre();
@@ -123,6 +131,7 @@ namespace WebCoreFrontend.Controllers
             c2.Name = "sydney";
             centres.Add(c1);
             centres.Add(c2);
+            */
             return Ok(centres);
         }
 

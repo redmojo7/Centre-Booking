@@ -126,6 +126,9 @@ document.getElementById("end").value = today_str;
                 }
             });
         }
+        else{
+            document.getElementById('nextAvaiDate').innerHTML = format_date(new Date());
+        }
     }
 
     function loadData(list){

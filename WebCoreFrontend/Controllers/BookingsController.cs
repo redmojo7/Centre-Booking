@@ -63,12 +63,12 @@ namespace WebCoreFrontend.Controllers
         public IActionResult Index()
         {
             ViewBag.Title = "Bookings";
-            /*
+            
             RestClient restClient = new RestClient(URL);
             RestRequest restRequest = new RestRequest("api/centres", Method.Get);
             RestResponse restResponse = restClient.Execute(restRequest);
             List<Centre> centres = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
-            */
+            
             return View(centres);
         }
 
@@ -77,12 +77,12 @@ namespace WebCoreFrontend.Controllers
         public IActionResult Users()
         {
             ViewBag.Title = "Bookings";
-            /*
+            
             RestClient restClient = new RestClient(URL);
             RestRequest restRequest = new RestRequest("api/centres", Method.Get);
             RestResponse restResponse = restClient.Execute(restRequest);
             List<Centre> centres = JsonConvert.DeserializeObject<List<Centre>>(restResponse.Content);
-            */
+            
             return View(centres);
         }
 
@@ -93,7 +93,7 @@ namespace WebCoreFrontend.Controllers
             {
                 return BadRequest("id cannot be null.");
             }
-            /*
+            
             RestClient client = new RestClient(URL);
             // send http request to delete
             RestRequest restRequest = new RestRequest("api/bookings/incentre/{centreId}", Method.Get);
@@ -113,8 +113,8 @@ namespace WebCoreFrontend.Controllers
                 Console.WriteLine(restResponse.Content);
                 return StatusCode(500, $"Internal server error.");
             }
-            */
-            return Ok(bookings);
+            
+           // return Ok(bookings);
         }
 
         
@@ -125,7 +125,7 @@ namespace WebCoreFrontend.Controllers
             {
                 return BadRequest("id cannot be null.");
             }
-            /*
+            
             RestClient client = new RestClient(URL);
             // send http request to delete
             RestRequest restRequest = new RestRequest("api/Bookings/nextAvaliableDate/{centreId}", Method.Get);
@@ -144,9 +144,9 @@ namespace WebCoreFrontend.Controllers
             {
                 Console.WriteLine(restResponse.Content);
                 return StatusCode(500, $"Internal server error.");
-            }*/
+            }
             
-            return Ok(DateTime.Now);
+            //return Ok(DateTime.Now);
         }
 
         [HttpPost]
