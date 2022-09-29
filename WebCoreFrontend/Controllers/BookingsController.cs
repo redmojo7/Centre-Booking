@@ -152,8 +152,8 @@ namespace WebCoreFrontend.Controllers
         [HttpPost]
         public IActionResult Insert([FromBody] Booking booking)
         {
-            if (booking == null || booking.EndDate == null || booking.CentreId == null
-                || booking.StartDate == null || booking.UserName == null)
+            if (booking == null || booking.EndDate == null || booking.CentreId == 0
+                || booking.StartDate == null || string.IsNullOrEmpty(booking.UserName))
             {
                 return BadRequest("StartDate/EndDate/CentreId/UserName is null");
             }

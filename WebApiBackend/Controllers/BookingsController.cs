@@ -96,7 +96,7 @@ namespace WebApiBackend.Controllers
             List<Booking> bookings = db.Bookings.Where(b => b.CentreId == booking.CentreId).ToList();
             foreach (var b in bookings)
             {
-                bool overlap = booking.StartDate < b.EndDate && b.StartDate < booking.EndDate;
+                bool overlap = booking.StartDate <= b.EndDate && b.StartDate <= booking.EndDate;
                 if (overlap)
                 {
                     return Conflict();
