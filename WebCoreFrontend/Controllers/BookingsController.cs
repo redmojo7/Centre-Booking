@@ -159,7 +159,11 @@ namespace WebCoreFrontend.Controllers
             }
             if (DateTime.Today.Subtract(booking.StartDate).TotalDays > 0) 
             {
-                return BadRequest("StartDate must from today!");
+                return BadRequest("StartDate must is today or the day after toda!");
+            }
+            if (booking.EndDate.Subtract(booking.StartDate).TotalDays < 0)
+            {
+                return BadRequest("EndDate must is teh StartDate or the day after StartDate!");
             }
             RestClient restClient = new RestClient(URL);
             RestRequest restRequest = new RestRequest("api/bookings", Method.Post);

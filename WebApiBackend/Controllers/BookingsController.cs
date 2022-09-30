@@ -135,7 +135,7 @@ namespace WebApiBackend.Controllers
                 return BadRequest("centreId cannot be empty.");
             }
             List<Booking> bookings = db.Bookings.Where(b => b.CentreId == centreId).ToList();
-            DateTime avaliable = DateTime.Today.AddDays(1);
+            DateTime avaliable = DateTime.Today;
 
             if (bookings == null)
             {
