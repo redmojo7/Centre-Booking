@@ -157,6 +157,10 @@ namespace WebCoreFrontend.Controllers
             {
                 return BadRequest("StartDate/EndDate/CentreId/UserName is null");
             }
+            if (DateTime.Today.Subtract(booking.StartDate).TotalDays > 0) 
+            {
+                return BadRequest("StartDate must from today!");
+            }
             RestClient restClient = new RestClient(URL);
             RestRequest restRequest = new RestRequest("api/bookings", Method.Post);
             restRequest.AddBody(booking);
