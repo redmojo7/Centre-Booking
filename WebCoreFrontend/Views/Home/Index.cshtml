@@ -3,7 +3,7 @@
 *@
 @{
 }
-<style>
+<style id="loginStyle">
     Body {
         font-family: Calibri, Helvetica, sans-serif;
         background-color: pink;
@@ -48,27 +48,71 @@
         background-color: lightblue;
     }
 </style>
-
-<center> <h1> Admin Login </h1> </center>
-
-<div class="container">
-    <label>Username : </label>
-    <input id="username" type="text" placeholder="Enter Username" name="username" required>
-    <label>Password : </label>
-    <input id ="password" type="password" placeholder="Enter Password" name="password" required>
-    <button onclick="login()" style="width: 33%;float:left;">Login</button>
-    <button onclick="normal()" style="width: 33%;float:right;">Normal User</button>
+<div id="mainDiv">
+    <center> <h1> Admin Login </h1> </center>
+    <div class="container">
+        <label>Username : </label>
+        <input id="username" type="text" placeholder="Enter Username" name="username" required>
+        <label>Password : </label>
+        <input id ="password" type="password" placeholder="Enter Password" name="password" required>
+        <button onclick="login()" style="width: 33%;float:left;">Login</button>
+        <button onclick="normal()" style="width: 33%;float:right;">Normal User</button>
+    </div>
 </div>
 <script>
     function login() {
         if($("#username").val()=="admin" && $("#password").val()=="adminpass"){
             console.log("login successfully");
-            window.location= "/Centres" 
+            //window.location= "/Centres" 
+            
+            $("#mainDiv").empty();
+            $("#loginStyle").empty();
+            //$("#mainDiv").append($("<label>").text('Centres:'))
+            loadCentres()
         } else {
             alert("Error: username/password is wrong!");
         }
     }
     function normal() {
-        window.location= "/Bookings/users" 
+        //window.location= "/Bookings/users" 
+        $("#mainDiv").empty();
+        $("#loginStyle").empty();
+        loadUserBooking();
+    }
+    function loadCentres() {
+        $.ajax({
+            type: 'get',
+            url: '/Centres',
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                //alert("Centres here");
+                $("#mainDiv").append(data)
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
+    function loadUserBooking(){
+        $.ajax({
+            type: 'get',
+            url: '/Bookings/users',
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                //alert("Centres here");
+                $("#mainDiv").append(data)
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
     }
 </script>

@@ -5,26 +5,28 @@
 }
 <div id="navigation">
     <ul>
-        <li> <a href="/Bookings">Bookings</a></></li>
-        <li> <a href="/Centres">Centres</a></></li>
+        <li> <a href="javascript:void(0);" onclick="loadBookings()" >Bookings</a></></li>
+        <li> <a href="javascript:void(0);" onclick="loadCentres()" >Centres</a></></li>
     </ul>
 </div>
-<h3>Bookings</h3>
-<div class="width: 100%;">
-        <div style="width: 25%;float:left;">
-            <label for="centreSelect">Select a Centre Name</label>
-            <select id="centreSelect" onchange="centreChanged()">
-                <option value="" id="cenre_default" selected="selected" ></option>
-                @foreach (var centre in Model)
-                {
-                    <option value="@centre.Id" id="centre_@centre.Id">@centre.Name</option>
-                }
-            </select>
-        </div>
-        <div style="width: 25%;float:left;">
-            <label for="nextAvaiDate">Next Avaliable Date:</label>
-            <p id="nextAvaiDate" ></p>
-        </div>
+<div id="adminDiv">
+    <h3>Bookings</h3>
+    <div class="width: 100%;">
+            <div style="width: 25%;float:left;">
+                <label for="centreSelect">Select a Centre Name</label>
+                <select id="centreSelect" onchange="centreChanged()">
+                    <option value="" id="cenre_default" selected="selected" ></option>
+                    @foreach (var centre in Model)
+                    {
+                        <option value="@centre.Id" id="centre_@centre.Id">@centre.Name</option>
+                    }
+                </select>
+            </div>
+            <div style="width: 25%;float:left;">
+                <label for="nextAvaiDate">Next Avaliable Date:</label>
+                <p id="nextAvaiDate" ></p>
+            </div>
+    </div>
 </div>
 
 <div id="bookingview" style="width:1025px; height:300px;">
@@ -47,6 +49,46 @@
 var today_str = format_date(new Date());
 document.getElementById("start").value = today_str;
 document.getElementById("end").value = today_str;
+
+    function loadBookings(){
+        $("#adminDiv").empty();
+        $.ajax({
+            type: 'get',
+            url: '/Centres',
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                //alert("Centres here");
+                $("#adminDiv").append(data)
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
+
+    function loadCentres(){
+        $("#adminDiv").empty();
+        $.ajax({
+            type: 'get',
+            url: '/Centres',
+            contentType: 'application/json',
+            processData: false,
+            success: function (data, textStatus, jQxhr) {
+                //alert("Centres here");
+                $("#adminDiv").append(data)
+            },
+            error: function (xhr, textStatus, error) {
+                alert("Error: " + xhr.responseText);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
 
 
     function format_date(date){
