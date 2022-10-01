@@ -3,13 +3,14 @@
     @model IEnumerable<Centre>;
 
 }
-<div id="navigation">
-    <ul>
-        <li> <a href="javascript:void(0);" onclick="loadBookings()" >Bookings</a></></li>
-        <li> <a href="javascript:void(0);" onclick="loadCentres()" >Centres</a></></li>
-    </ul>
-</div>
+
 <div id="adminDiv">
+    <div id="navigation">
+        <ul>
+            <li> <a href="javascript:void(0);" onclick="loadBookings()">Bookings</a></></li>
+            <li> <a href="javascript:void(0);" onclick="loadCentres()">Centres</a></></li>
+        </ul>
+    </div>
     <h3>Bookings</h3>
     <div class="width: 100%;">
             <div style="width: 25%;float:left;">
@@ -22,25 +23,26 @@
                     }
                 </select>
             </div>
-            <div style="width: 25%;float:left;">
-                <label for="nextAvaiDate">Next Avaliable Date:</label>
-                <p id="nextAvaiDate" ></p>
+            <div style="width: 50%;float:left;">
+                <label style="float:left;" for="nextAvaiDate">Next Avaliable Date:  </label>
+                <div style="float:left;" id="nextAvaiDate" ></div>
             </div>
     </div>
-</div>
 
-<div id="bookingview" style="width:1025px; height:300px;">
-    <table style="black" cellspacing="0" width="900px" id="dataTableDetail" align="center">
-        <caption>Booking List</caption>
-          <tr>
-            <th>Id</th>
-            <th>UserName</th>
-            <th>StartDate</th>
-            <th>EndDate</th>
-            <th>Centre Name</th>
-          </tr>
+
+    <div id="bookingview" style="width:1025px; height:300px;">
+        <table style="black" cellspacing="0" width="900px" id="dataTableDetail" align="center">
+            <caption>Booking List</caption>
+              <tr>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Centre Name</th>
+              </tr>
            
-    </table>
+        </table>
+    </div>
 </div>
 
 
@@ -54,7 +56,7 @@ document.getElementById("end").value = today_str;
         $("#adminDiv").empty();
         $.ajax({
             type: 'get',
-            url: '/Centres',
+            url: '/Bookings',
             contentType: 'application/json',
             processData: false,
             success: function (data, textStatus, jQxhr) {

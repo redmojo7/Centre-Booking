@@ -68,7 +68,7 @@
             $("#mainDiv").empty();
             $("#loginStyle").empty();
             //$("#mainDiv").append($("<label>").text('Centres:'))
-            loadCentres()
+            loadBookings()
         } else {
             alert("Error: username/password is wrong!");
         }
@@ -79,10 +79,10 @@
         $("#loginStyle").empty();
         loadUserBooking();
     }
-    function loadCentres() {
+    function loadBookings() {
         $.ajax({
             type: 'get',
-            url: '/Centres',
+            url: '/Bookings',
             contentType: 'application/json',
             processData: false,
             success: function (data, textStatus, jQxhr) {
